@@ -1,0 +1,18 @@
+- hosts: localhost
+  become: true
+  pre_tasks:
+  - name: Update cache 
+    become: true
+    apt:
+      update_cache: true
+    tags:
+      - install
+      - core
+      - git-personal
+      - node
+      - neovim
+  tasks:
+    - include_tasks: tasks/coreutils.yml
+    - include_tasks: tasks/node.yml
+    - include_tasks: tasks/git.yml
+    - include_tasks: tasks/neovim.yml

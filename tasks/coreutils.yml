@@ -1,0 +1,20 @@
+  - name: Ensure builds directory
+    file:
+      path: "{{ lookup('env', 'HOME') }}/builds"
+      state: directory
+
+  - name: Install system utils
+    become: true
+    apt:
+      name: ["ninja-build", "gettext", "cmake", "unzip", "curl", "build-essential"]
+    tags:
+      - install
+      - core
+
+  - name: Install system tools
+    become: true
+    apt:
+      name: ["tmux", "git"]
+    tags:
+      - install
+      - core
