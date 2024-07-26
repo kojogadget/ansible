@@ -5,14 +5,11 @@
     value: "kjartan@gunder.dev"
   tags:
     - install
-    - git-personal
 
 - name: Git personal setup name
   git_config:
     name: user.name
     scope: global
-    value: "Kjartan Gundersen"
+    value: "Kojogadget"
   tags:
     - install
-    - install
-    - git-personal

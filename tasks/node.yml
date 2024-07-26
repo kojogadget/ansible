@@ -2,7 +2,6 @@
   shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
   tags:
     - install
-    - node
 
 - name: Load NVM and install Node.js
   shell: |
@@ -11,4 +10,3 @@
     nvm install --lts
   tags: 
     - install
-    - node
