@@ -1,0 +1,6 @@
+  - name: Install rust and cargo
+    become_user: "{{ lookup('env', 'USER') }}"
+    shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+    tags:
+      - install
+      - rust

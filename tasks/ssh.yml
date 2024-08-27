@@ -1,4 +1,5 @@
-- name: Ensure .ssh directory exists.
+- name: Ensure .ssh directory exists
+  become_user: "{{ lookup('env', 'USER') }}"
   file:
     dest: "{{ dest_key | dirname }}"
     mode: 0700
@@ -8,6 +9,7 @@
     - ssh
 
 - name: Install ssh key
+  become_user: "{{ lookup('env', 'USER') }}"
   copy:
     src: "{{ source_key }}"
     dest: "{{ dest_key }}"
@@ -17,6 +19,7 @@
     - ssh
 
 - name: Install ssh key public
+  become_user: "{{ lookup('env', 'USER') }}"
   copy:
     src: "{{ source_key }}.pub"
     dest: "{{ dest_key }}.pub"
@@ -25,10 +28,20 @@
     - install
     - ssh
 
+- name: Read the public key content
+  slurp:
+    src: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+  register: public_key_file
+  tags:
+    - install
+    - ssh
+
 - name: Set authorized key took from file
+  become_user: "{{ lookup('env', 'USER') }}"
   authorized_key:
     user: "{{ lookup('env', 'USER') }}"
     state: present
-    key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
-  with_fileglob:
-  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"
+    key: "{{ public_key_file.content | b64decode }}"
+  tags:
+    - install
+    - ssh

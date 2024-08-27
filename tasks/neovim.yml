@@ -1,5 +1,5 @@
   - name: Remove Neovim
-    shell: rm -rf {{ lookup('env', 'HOME') }}/builds/neovim
+    shell: rm -rf {{ lookup('env', 'HOME') }}/Projects/builds/neovim
     tags: 
       - install
       - neovim
@@ -7,32 +7,32 @@
   - name: Clone Neovim
     ansible.builtin.git:
       repo: 'https://github.com/neovim/neovim.git'
-      dest: "{{ lookup('env', 'HOME') }}/builds/neovim"
+      dest: "{{ lookup('env', 'HOME') }}/Projects/builds/neovim"
     tags:
       - install
       - neovim
 
   - name: Build neovim
-    shell: "cd {{ lookup('env', 'HOME') }}/builds/neovim && git checkout stable && make CMAKE_BUILD_TYPE=RelWithDebInfo"
+    shell: "cd {{ lookup('env', 'HOME') }}/Projects/builds/neovim && git checkout stable && make CMAKE_BUILD_TYPE=RelWithDebInfo"
     tags:
       - install
       - neovim
 
   - name: Install neovim
     become: true
-    shell: "cd {{ lookup('env', 'HOME') }}/builds/neovim && make install"
+    shell: "cd {{ lookup('env', 'HOME') }}/Projects/builds/neovim && make install"
     tags:
       - install
       - neovim
 
-  - name: Neovim Plugin Development 1
+  - name: Neovim Dependencies 1 luarocks
     become: true
     apt: name=luarocks
     tags:
       - install
       - neovim
 
-  - name: Neovim Plugin Development 2 luacheck
+  - name: Neovim Dependencies 2 luacheck
     become: true
     shell: luarocks install luacheck
     tags:

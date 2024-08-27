@@ -1,0 +1,28 @@
+- name: Install starship
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: curl -sS https://starship.rs/install.sh | sh -s -- -y
+  tags:
+    - install
+    - utils
+    - starship
+
+- name: Install zoxide
+  become_user: "{{ lookup('env', 'USER') }}"
+  community.general.cargo:
+    name: "zoxide"
+    executable: "{{ lookup('env', 'HOME' ) }}/.cargo/bin/cargo"
+    locked: true
+  tags:
+    - install
+    - utils
+    - zoxide
+
+- name: Install eza
+  become_user: "{{ lookup('env', 'USER') }}"
+  community.general.cargo:
+    name: "eza"
+    executable: "{{ lookup('env', 'HOME' ) }}/.cargo/bin/cargo"
+  tags:
+    - install
+    - utils
+    - eza

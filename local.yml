@@ -2,6 +2,7 @@
   vars:
     source_key: "./.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    user: "kg"
   become: true
   pre_tasks:
   - name: Update cache 
@@ -11,13 +12,45 @@
     tags:
       - install
       - dotfiles
-      - ssh
       - core
-      - neovim
   tasks:
     - include_tasks: tasks/ssh.yml
+      tags:
+        - install
+        - ssh
+
     - include_tasks: tasks/coreutils.yml
+      tags:
+        - install
+        - core
+
+    - include_tasks: tasks/rust.yml
+      tags:
+        - install
+        - rust
+
     - include_tasks: tasks/node.yml
+      tags:
+        - install
+        - node
+
     - include_tasks: tasks/git.yml
+      tags:
+        - install
+
     - include_tasks: tasks/neovim.yml
+      tags:
+        - install
+        - neovim
+
     - include_tasks: tasks/dotfiles.yml
+      tags:
+        - install
+        - dotfiles
+
+    - include_tasks: tasks/utils.yml
+      tags:
+        - install
+        - utils
+        - starship
+        - zoxide

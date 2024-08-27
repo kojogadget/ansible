@@ -1,12 +1,16 @@
   - name: Ensure builds directory
+    become_user: "{{ lookup('env', 'USER') }}"
     file:
-      path: "{{ lookup('env', 'HOME') }}/builds"
+      path: "{{ lookup('env', 'HOME') }}/Projects/builds"
       state: directory
+    tags:
+      - install
+      - core
 
   - name: Install system utils
     become: true
     apt:
-      name: ["ninja-build", "gettext", "cmake", "unzip", "curl", "build-essential"]
+      name: ["ninja-build", "gettext", "cmake", "unzip", "curl", "libtool", "libtool-bin", "build-essential"]
     tags:
       - install
       - core
@@ -14,7 +18,13 @@
   - name: Install system tools
     become: true
     apt:
-      name: ["tmux", "git"]
+      name: ["tmux", "git", "fzf", "fd-find", "ripgrep", "curl", "btop", "bat", "xclip", "wl-clipboard", "tldr"]
     tags:
       - install
       - core
+
+  - name: Symlink fd
+    file:
+      src: "/usr/bin/fdfind"
+      dest: "{{ lookup('env', 'HOME') }}/.local/bin/fd"
+      state: link
