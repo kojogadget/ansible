@@ -1,5 +1,5 @@
 - name: Installing stow
-  apt: name=stow
+  package: name=stow
   tags:
     - install
     - dotfiles

@@ -7,23 +7,84 @@
       - install
       - core
 
-  - name: Install system utils
+  - name: Install system utils (apt)
+    when: ansible_os_family == "Debian"
     become: true
     apt:
-      name: ["ninja-build", "gettext", "cmake", "unzip", "curl", "libtool", "libtool-bin", "build-essential"]
+      name: 
+        - ninja-build
+        - gettext
+        - cmake
+        - unzip
+        - curl
+        - libtool
+        - libtool-bin
+        - build-essential
     tags:
       - install
       - core
 
-  - name: Install system tools
+  - name: Install system utils (dnf)
+    when: ansible_os_family == "RedHat"
+    become: true
+    dnf:
+      name: 
+        - ninja-build
+        - gettext
+        - cmake
+        - unzip
+        - curl
+        - libtool
+        - "@development-tools"
+    tags:
+      - install
+      - core
+
+  - name: Install system tools (apt)
+    when: ansible_os_family == "Debian"
     become: true
     apt:
-      name: ["tmux", "git", "fzf", "fd-find", "ripgrep", "curl", "btop", "bat", "xclip", "wl-clipboard", "tldr"]
+      name: 
+        - zsh
+        - tmux
+        - git
+        - fzf
+        - fd-find
+        - ripgrep
+        - curl
+        - btop
+        - bat
+        - xclip
+        - wl-clipboard
+        - tldr
+    tags:
+      - install
+      - core
+
+  - name: Install system tools (dnf)
+    when: ansible_os_family == "RedHat"
+    become: true
+    dnf:
+      name: 
+        - zsh
+        - tmux
+        - git
+        - fzf
+        - fd-find
+        - ripgrep
+        - curl
+        - btop
+        - bat
+        - xclip
+        - wl-clipboard
+        - tldr
+        - neovim
     tags:
       - install
       - core
 
   - name: Symlink fd
+    when: ansible_os_family == "Debian"
     file:
       src: "/usr/bin/fdfind"
       dest: "{{ lookup('env', 'HOME') }}/.local/bin/fd"

@@ -27,7 +27,7 @@
 
   - name: Neovim Dependencies 1 luarocks
     become: true
-    apt: name=luarocks
+    package: name=luarocks
     tags:
       - install
       - neovim

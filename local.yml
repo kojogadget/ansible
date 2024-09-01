@@ -7,7 +7,7 @@
   pre_tasks:
   - name: Update cache 
     become: true
-    apt:
+    package:
       update_cache: true
     tags:
       - install
@@ -39,6 +39,7 @@
         - install
 
     - include_tasks: tasks/neovim.yml
+      when: ansible_os_family != "RedHat"
       tags:
         - install
         - neovim

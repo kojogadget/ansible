@@ -6,3 +6,4 @@ popd
 
 source ~/.profile
 
+exec zsh
