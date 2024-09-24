@@ -1,0 +1,59 @@
+  - name: Ensure DAT102 directory
+    become_user: "{{ lookup('env', 'USER') }}"
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Projects/school/DAT102"
+      state: directory
+    tags:
+      - projects
+
+  - name: Cloning DAT102 forelesninger
+    become_user: "{{ lookup('env', 'USER') }}"
+    ansible.builtin.git:
+      repo: "git@github.com:kojogadget/DAT102-forelesninger.git"
+      dest: "{{ lookup('env', 'HOME') }}/Projects/school/DAT102/forelesninger"
+      recursive: yes
+      update: yes
+      accept_hostkey: yes
+    tags:
+      - projects
+
+  - name: Ensure DAT108 directory
+    become_user: "{{ lookup('env', 'USER') }}"
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Projects/school/DAT108"
+      state: directory
+    tags:
+      - projects
+
+  - name: Cloning DAT108 forelesninger
+    become_user: "{{ lookup('env', 'USER') }}"
+    ansible.builtin.git:
+      repo: "git@github.com:kojogadget/DAT108-forelesninger.git"
+      dest: "{{ lookup('env', 'HOME') }}/Projects/school/DAT108/forelesninger"
+      recursive: yes
+      update: yes
+      accept_hostkey: yes
+    tags:
+      - projects
+
+  - name: Cloning surgical blood loss project
+    become_user: "{{ lookup('env', 'USER') }}"
+    ansible.builtin.git:
+      repo: "git@github.com:kojogadget/surgical-blood-loss.git"
+      dest: "{{ lookup('env', 'HOME') }}/Projects/work/surgical-blood-loss"
+      recursive: yes
+      update: yes
+      accept_hostkey: yes
+    tags:
+      - projects
+
+  - name: Cloning kojoeditor project
+    become_user: "{{ lookup('env', 'USER') }}"
+    ansible.builtin.git:
+      repo: "git@github.com:kojogadget/kojoeditor.git"
+      dest: "{{ lookup('env', 'HOME') }}/Projects/personal/kojoeditor"
+      recursive: yes
+      update: yes
+      accept_hostkey: yes
+    tags:
+      - projects

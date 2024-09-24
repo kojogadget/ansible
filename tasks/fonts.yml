@@ -1,0 +1,20 @@
+- name: Download nerd fonts
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git {{ lookup('env', 'HOME') }}/Projects/builds/nerd-fonts
+  tags:
+    - install
+    - fonts
+
+- name: Install nerd fonts
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: cd {{ lookup('env', 'HOME') }}/Projects/builds/nerd-fonts && ./install.sh
+  tags:
+    - install
+    - fonts
+
+- name: Remove nerd fonts directory
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: rm -rf {{ lookup('env', 'HOME') }}/Projects/builds/nerd-fonts
+  tags:
+    - install
+    - fonts

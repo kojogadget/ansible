@@ -1,0 +1,63 @@
+- name: Install nvm
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  tags:
+    - install
+    - languages
+    - node
+
+- name: Load NVM and install Node.js
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: |
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm install --lts
+  tags: 
+    - install
+    - languages
+    - node
+
+- name: Install npm global tree-sitter-cli, neovim
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: |
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npm i -g tree-sitter-cli neovim eslint typescript-language-server typescript ts-node
+  tags:
+    - install
+    - languages
+    - node
+
+- name: Install SDK manager
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: curl -s "https://get.sdkman.io" | bash
+  tags:
+    - install
+    - languages
+    - java
+
+- name: Install Java (JDK)
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: sdk install java
+  tags:
+    - install
+    - languages
+    - java
+
+
+- name: Install Go 
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: curl -fsSLo- https://s.id/golang-linux | bash
+  tags:
+    - install
+    - languages
+    - go
+
+- name: Install Go LSP
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: "{{ lookup('env', 'HOME') }}/go/bin/go install golang.org/x/tools/gopls@latest"
+  tags:
+    - install
+    - languages
+    - go
+

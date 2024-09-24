@@ -29,14 +29,18 @@
         - install
         - rust
 
-    - include_tasks: tasks/node.yml
+    - include_tasks: tasks/languages.yml
       tags:
         - install
+        - languages
         - node
+        - java
+        - go
 
     - include_tasks: tasks/git.yml
       tags:
         - install
+        - git
 
     - include_tasks: tasks/neovim.yml
       when: ansible_os_family != "RedHat"
@@ -55,3 +59,19 @@
         - utils
         - starship
         - zoxide
+        - fzf
+
+    - include_tasks: tasks/projects.yml
+      tags:
+        - projects
+
+    - include_tasks: tasks/fonts.yml
+      when: "'fonts' in ansible_run_tags"
+      tags:
+        - install
+        - fonts
+
+    - include_tasks: tasks/gui.yml
+      when: "'gui' in ansible_run_tags"
+      tags:
+        - gui

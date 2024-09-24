@@ -6,23 +6,32 @@
     - utils
     - starship
 
-- name: Install zoxide
+- name: Install rust tools (zoxide, eza, bluetui)
   become_user: "{{ lookup('env', 'USER') }}"
   community.general.cargo:
-    name: "zoxide"
+    name: 
+      - zoxide
+      - eza
+      - bluetui
     executable: "{{ lookup('env', 'HOME' ) }}/.cargo/bin/cargo"
     locked: true
   tags:
     - install
     - utils
-    - zoxide
 
-- name: Install eza
+- name: Install python tools (pulsemixer)
   become_user: "{{ lookup('env', 'USER') }}"
-  community.general.cargo:
-    name: "eza"
-    executable: "{{ lookup('env', 'HOME' ) }}/.cargo/bin/cargo"
+  pip:
+    name: 
+      - pulsemixer
   tags:
     - install
     - utils
-    - eza
+
+- name: Install fzf 
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: cd {{ lookup('env', 'HOME') }}/.fzf && ./install
+  tags:
+    - install
+    - utils
+    - fzf

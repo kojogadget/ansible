@@ -1,15 +1,29 @@
 - name: Git personal setup email
+  become_user: "{{ lookup('env', 'USER') }}"
   git_config:
     name: user.email
     scope: global
     value: "kjartan@gunder.dev"
   tags:
     - install
+    - git
 
 - name: Git personal setup name
+  become_user: "{{ lookup('env', 'USER') }}"
   git_config:
     name: user.name
     scope: global
     value: "Kojogadget"
   tags:
     - install
+    - git
+    
+- name: Git personal default branch
+  become_user: "{{ lookup('env', 'USER') }}"
+  git_config:
+    name: init.defaultBranch
+    scope: global
+    value: "main"
+  tags:
+    - install
+    - git
