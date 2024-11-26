@@ -8,6 +8,7 @@
         - foot
         - alacritty
         - rofi
+        - wayland-protocols-devel
         - zathura
         - zathura-pdf-mupdf 
         - zathura-zsh-completion

@@ -38,7 +38,10 @@
 
 - name: Install Java (JDK)
   become_user: "{{ lookup('env', 'USER') }}"
-  shell: sdk install java
+  shell: | 
+    sdk install java
+    sdk install maven
+    sdk install springboot
   tags:
     - install
     - languages
